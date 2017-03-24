@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
@@ -12,12 +13,28 @@ android {
         versionName "1.0"
     }
 
-    buildTypes {
+    // Note: signingConfigs must be placed ahead of buildTypes so
+    // that signingConfig signingConfigs.release in buildTypes can
+    // be properly referenced.
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            keyAlias 'SecureKey'
+            keyPassword 'neil@keystore'
+            storeFile file('../certificate/release_keystore.jks')
+            storePassword 'neil@keystore'
         }
     }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+        }
+    }
+
+
     productFlavors {
         development {
             buildConfigField "boolean", "enableLog", "true"
