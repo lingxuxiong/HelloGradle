@@ -23,6 +23,10 @@ android {
             buildConfigField "boolean", "enableLog", "true"
         }
 
+        integration {
+            buildConfigField "boolean", "enableLog", "true"
+        }
+
         qa {
             applicationId "com.neil.hellogradle.qa"
             buildConfigField "boolean", "enableLog", "true"
@@ -32,9 +36,6 @@ android {
             buildConfigField "boolean", "enableLog", "false"
         }
 
-        integration {
-            buildConfigField "boolean", "enableLog", "true"
-        }
     }
 }
 
