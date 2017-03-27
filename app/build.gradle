@@ -18,10 +18,16 @@ android {
     // be properly referenced.
     signingConfigs {
         release {
-            keyAlias 'SecureKey'
-            keyPassword 'neil@keystore'
-            storeFile file('../certificate/release_keystore.jks')
-            storePassword 'neil@keystore'
+            // Load keystore properties.
+            def keyStoreFileLocation = rootProject.file("certificate/keystore.properties");
+            def keyStoreProperties = new Properties();
+            keyStoreProperties.load(new FileInputStream(keyStoreFileLocation));
+
+            // Assign signing properties.
+            keyAlias keyStoreProperties['keyAlias']
+            storeFile file(keyStoreProperties['storeFile'])
+            storePassword keyStoreProperties['storePassword']
+            keyPassword keyStoreProperties['keyPassword']
         }
     }
 
